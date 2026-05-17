@@ -20,7 +20,7 @@ export function PuzzleScreen() {
         Drag each piece into its spot to complete the Phanatic's scorecard.
       </p>
       <div className="w-full max-w-sm rounded border-2 border-gray-400">
-        <JigsawPuzzle imageSrc="/peteRose.jpg" onComplete={() => setShowModal(true)} />
+        <JigsawPuzzle imageSrc="/phillies-stadium-arg/peteRose.jpg" onComplete={() => setShowModal(true)} />
       </div>
 
       {showModal && (

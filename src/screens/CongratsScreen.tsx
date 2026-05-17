@@ -64,7 +64,7 @@ export function CongratsScreen() {
       )}
 
       <img
-        src="/peteRose.jpg"
+        src="/phillies-stadium-arg/peteRose.jpg"
         alt="The recovered scorecard"
         className="mb-6 w-full max-w-sm rounded-xl"
       />
