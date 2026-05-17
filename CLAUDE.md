@@ -116,6 +116,22 @@ On app load, the progress hook determines the entry route:
 - Keep game components focused on game logic; delegate all progress writes to `useProgress`
 - No magic numbers
 
+## Linear
+
+- Team ID: `60ed8dc3-6569-418d-ab36-e5fbad008b0e` (team key: `SEA`)
+- API key: `LINEAR_API_KEY` in `.env.local`
+
+## Code Review Notes
+
+Project-specific checks for the tech-lead agent (in addition to universal checks):
+
+- **localStorage**: only accessed through `useProgress` — never directly from a component or game
+- **Game contract**: every game component must call `onComplete(pieceId)` — never route or persist directly
+- **React Router**: no imperative `window.location` navigation; use `useNavigate`
+- **Tailwind**: mobile-first (`sm:` and up); no custom CSS files unless Tailwind cannot do it
+- **Child-friendly**: wrong answers grey out (never removed); hint text shown after wrong guesses — do not change this behavior
+- **Config-driven**: game sequence, piece IDs, and copy strings must live in config objects, not inline in components
+
 ## Key Constraints
 
 - **Offline-first**: All MVP content (quiz questions, mascot data) is hardcoded. No network calls in the critical path.
