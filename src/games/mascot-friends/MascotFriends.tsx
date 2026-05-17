@@ -62,9 +62,11 @@ export function MascotFriends({ onComplete }: GameProps) {
                 'rounded-xl border-2 p-3 text-center transition-opacity',
                 isRejected
                   ? 'cursor-not-allowed border-gray-200 opacity-30'
-                  : roundWon
-                    ? 'border-gray-200 opacity-50'
-                    : 'border-red-600 active:bg-red-50',
+                  : roundWon && mascot.name === round.correct.name
+                    ? 'border-green-500'
+                    : roundWon
+                      ? 'border-gray-200 opacity-50'
+                      : 'border-red-600 active:bg-red-50',
               ].join(' ')}
             >
               <div className="relative mb-2 aspect-square w-full overflow-hidden rounded-lg bg-gray-200">

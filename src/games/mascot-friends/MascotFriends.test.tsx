@@ -59,6 +59,17 @@ describe('MascotFriends', () => {
     mascotButtons.forEach((b) => expect(b).toBeDisabled())
   })
 
+  it('is still winnable after clicking a wrong answer first', async () => {
+    const user = userEvent.setup()
+    const onComplete = vi.fn()
+    renderGame(onComplete)
+
+    await user.click(screen.getByRole('button', { name: new RegExp(ROUNDS[0].wrong[0].name) }))
+    await user.click(screen.getByRole('button', { name: new RegExp(ROUNDS[0].correct.name) }))
+
+    expect(screen.getByText(/phanatic's friend/i)).toBeInTheDocument()
+  })
+
   it('advances to round 2 after clicking Next Round', async () => {
     const user = userEvent.setup()
     renderGame()
