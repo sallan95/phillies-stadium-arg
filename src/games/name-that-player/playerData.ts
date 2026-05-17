@@ -1,13 +1,8 @@
+import type { Question } from '../types'
+
 export const PIECE_ID = 'piece-2'
 
-export interface PlayerQuestion {
-  question: string
-  options: string[]
-  correctAnswer: string
-  hint: string
-}
-
-export const QUESTIONS: PlayerQuestion[] = [
+export const QUESTIONS: Question[] = [
   {
     question: "Who is the Phillies' ace starting pitcher?",
     options: ['Zack Wheeler', 'Aaron Nola', 'Ranger Suárez', 'Cristopher Sánchez'],
