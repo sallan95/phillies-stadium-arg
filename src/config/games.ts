@@ -12,6 +12,7 @@ export interface GameConfig {
 // Screens are imported lazily to keep this file free of circular deps.
 // Add a new entry here to register a game — nothing else needs to change.
 import { StadiumQuiz } from '../games/stadium-quiz/StadiumQuiz'
+import { MascotFriends } from '../games/mascot-friends/MascotFriends'
 
 export const GAMES: GameConfig[] = [
   {
@@ -20,5 +21,12 @@ export const GAMES: GameConfig[] = [
     displayName: 'Eyes Open',
     description: 'The Phanatic thinks the clues are hidden in plain sight. Look around!',
     component: StadiumQuiz,
+  },
+  {
+    gameId: 'mascot-friends',
+    pieceId: 'piece-3',
+    displayName: "The Phanatic's Crew",
+    description: 'The Phanatic has friends all over the league. Can you spot them?',
+    component: MascotFriends,
   },
 ]

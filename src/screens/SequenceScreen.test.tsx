@@ -76,12 +76,11 @@ describe('SequenceScreen', () => {
   describe('with all games complete', () => {
     it('shows the congrats link', () => {
       // Arrange
-      mockProgress({ completedGames: ['stadium-quiz'] })
+      mockProgress({ completedGames: ['stadium-quiz', 'mascot-friends'] })
 
       // Act
       renderSequenceScreen()
 
-      // Assert — with only one game in config, all complete = congrats visible
       expect(screen.getByText(/Rebuild the Scorecard/)).toBeInTheDocument()
     })
   })
