@@ -5,7 +5,7 @@
     <script>
       // Redirect deep paths back to the root so React Router can handle them.
       // Encodes the path as a query param that index.html strips on load.
-      var path = window.location.pathname.replace('/phillies-stadium-arg', '') || '/';
+      var path = window.location.pathname.replace(/^\/phillies-stadium-arg/, '') || '/';
       window.location.replace(
         '/phillies-stadium-arg/?p=' + encodeURIComponent(path) + window.location.hash
       );

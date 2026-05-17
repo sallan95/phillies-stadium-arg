@@ -7,7 +7,7 @@ import { ProgressProvider } from './hooks/ProgressContext'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/phillies-stadium-arg">
       <ProgressProvider>
         <App />
       </ProgressProvider>
