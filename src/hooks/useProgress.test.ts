@@ -1,5 +1,6 @@
 import { renderHook, act } from '@testing-library/react'
-import { useProgress, ProgressProvider } from './useProgress'
+import { useProgress } from './useProgress'
+import { ProgressProvider } from './ProgressContext'
 
 const wrapper = ProgressProvider
 

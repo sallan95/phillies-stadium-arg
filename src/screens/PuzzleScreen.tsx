@@ -28,9 +28,9 @@ export function PuzzleScreen() {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
+        <div role="dialog" aria-modal="true" aria-labelledby="puzzle-complete-title" className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
           <div className="mx-6 rounded-2xl bg-white p-8 text-center shadow-xl">
-            <h1 className="mb-4 text-3xl font-bold">You did it!</h1>
+            <h2 id="puzzle-complete-title" className="mb-4 text-3xl font-bold">You did it!</h2>
             <p className="mb-2 text-xl">Welcome to the Scorecard Recovery Crew.</p>
             <p className="mt-6 text-sm italic text-gray-500">
               "A Philly by any other name would smell as sweet."

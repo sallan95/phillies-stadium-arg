@@ -35,9 +35,9 @@ export function App() {
       } />
       <Route path="/sequence" element={<SequenceScreen />} />
       <Route path="/puzzle" element={
-        progress.completedGames.length > 0
+        GAMES.every(g => progress.completedGames.includes(g.gameId))
           ? <PuzzleScreen />
-          : <Navigate to="/" replace />
+          : <Navigate to={defaultRoute} replace />
       } />
       <Route path="/congrats" element={
         progress.gameComplete
