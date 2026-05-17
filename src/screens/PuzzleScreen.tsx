@@ -8,10 +8,6 @@ export function PuzzleScreen() {
   const { markGameComplete } = useProgress()
   const [showModal, setShowModal] = useState(false)
 
-  function handleComplete() {
-    setShowModal(true)
-  }
-
   function handleContinue() {
     markGameComplete()
     navigate('/congrats')
@@ -23,8 +19,8 @@ export function PuzzleScreen() {
       <p className="mb-4 text-sm text-gray-500">
         Drag each piece into its spot to complete the Phanatic's scorecard.
       </p>
-      <div className="w-64 rounded border-2 border-gray-400">
-        <JigsawPuzzle imageSrc="/peteRose.jpg" onComplete={handleComplete} />
+      <div className="w-full max-w-sm rounded border-2 border-gray-400">
+        <JigsawPuzzle imageSrc="/peteRose.jpg" onComplete={() => setShowModal(true)} />
       </div>
 
       {showModal && (
@@ -32,9 +28,6 @@ export function PuzzleScreen() {
           <div className="mx-6 rounded-2xl bg-white p-8 text-center shadow-xl">
             <h2 id="puzzle-complete-title" className="mb-4 text-3xl font-bold">You did it!</h2>
             <p className="mb-2 text-xl">Welcome to the Scorecard Recovery Crew.</p>
-            <p className="mt-6 text-sm italic text-gray-500">
-              "A Philly by any other name would smell as sweet."
-            </p>
             <button
               className="mt-8 w-full rounded-xl bg-red-600 px-8 py-3 font-bold text-white active:bg-red-700"
               onClick={handleContinue}
