@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { createContext, useContext } from 'react'
 
 export interface ProgressState {
   completedGames: string[]
@@ -6,56 +6,17 @@ export interface ProgressState {
   gameComplete: boolean
 }
 
-const STORAGE_KEY = 'phillies-arg-progress'
-
-const EMPTY_PROGRESS: ProgressState = {
-  completedGames: [],
-  collectedPieces: [],
-  gameComplete: false,
+export interface ProgressContextValue {
+  progress: ProgressState
+  completeGame: (gameId: string, pieceId: string) => void
+  markGameComplete: () => void
+  resetProgress: () => void
 }
 
-function loadProgress(): ProgressState {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY)
-    if (!raw) return EMPTY_PROGRESS
-    return JSON.parse(raw) as ProgressState
-  } catch {
-    return EMPTY_PROGRESS
-  }
-}
+export const ProgressContext = createContext<ProgressContextValue | null>(null)
 
-function saveProgress(state: ProgressState): void {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
-}
-
-export function useProgress() {
-  const [progress, setProgress] = useState<ProgressState>(loadProgress)
-
-  const completeGame = useCallback((gameId: string, pieceId: string) => {
-    setProgress((prev) => {
-      if (prev.completedGames.includes(gameId)) return prev
-      const next = {
-        ...prev,
-        completedGames: [...prev.completedGames, gameId],
-        collectedPieces: [...prev.collectedPieces, pieceId],
-      }
-      saveProgress(next)
-      return next
-    })
-  }, [])
-
-  const markGameComplete = useCallback(() => {
-    setProgress((prev) => {
-      const next = { ...prev, gameComplete: true }
-      saveProgress(next)
-      return next
-    })
-  }, [])
-
-  const resetProgress = useCallback(() => {
-    localStorage.removeItem(STORAGE_KEY)
-    setProgress(EMPTY_PROGRESS)
-  }, [])
-
-  return { progress, completeGame, markGameComplete, resetProgress }
+export function useProgress(): ProgressContextValue {
+  const ctx = useContext(ProgressContext)
+  if (!ctx) throw new Error('useProgress must be used within ProgressProvider')
+  return ctx
 }

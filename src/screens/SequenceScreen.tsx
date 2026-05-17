@@ -4,14 +4,7 @@ import { useProgress } from '../hooks/useProgress'
 
 export function SequenceScreen() {
   const navigate = useNavigate()
-  const { progress, resetProgress } = useProgress()
-
-  function handleReset() {
-    if (window.confirm('Reset all progress and return to the start?')) {
-      resetProgress()
-      navigate('/')
-    }
-  }
+  const { progress } = useProgress()
 
   const allGamesComplete = GAMES.every((g) =>
     progress.completedGames.includes(g.gameId)
@@ -64,22 +57,12 @@ export function SequenceScreen() {
       {allGamesComplete && (
         <button
           className="mt-6 w-full rounded-xl bg-green-600 p-4 text-center text-lg font-bold text-white active:bg-green-700"
-          onClick={() => navigate('/congrats')}
+          onClick={() => navigate('/puzzle')}
         >
-          View your Scorecard →
+          Rebuild the Scorecard →
         </button>
       )}
 
-      {import.meta.env.DEV && (
-        <div className="mt-12 flex justify-center">
-          <button
-            className="rounded px-3 py-1 text-xs text-gray-400 underline"
-            onClick={handleReset}
-          >
-            [dev] Reset progress
-          </button>
-        </div>
-      )}
     </div>
   )
 }

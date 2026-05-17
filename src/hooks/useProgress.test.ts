@@ -1,5 +1,8 @@
 import { renderHook, act } from '@testing-library/react'
 import { useProgress } from './useProgress'
+import { ProgressProvider } from './ProgressContext'
+
+const wrapper = ProgressProvider
 
 beforeEach(() => {
   localStorage.clear()
@@ -9,7 +12,7 @@ describe('useProgress', () => {
   describe('initial state', () => {
     it('returns empty progress when localStorage is empty', () => {
       // Arrange & Act
-      const { result } = renderHook(() => useProgress())
+      const { result } = renderHook(() => useProgress(), { wrapper })
 
       // Assert
       expect(result.current.progress.completedGames).toEqual([])
@@ -27,7 +30,7 @@ describe('useProgress', () => {
       localStorage.setItem('phillies-arg-progress', JSON.stringify(saved))
 
       // Act
-      const { result } = renderHook(() => useProgress())
+      const { result } = renderHook(() => useProgress(), { wrapper })
 
       // Assert
       expect(result.current.progress.completedGames).toEqual(['stadium-quiz'])
@@ -39,7 +42,7 @@ describe('useProgress', () => {
       localStorage.setItem('phillies-arg-progress', 'not-valid-json')
 
       // Act
-      const { result } = renderHook(() => useProgress())
+      const { result } = renderHook(() => useProgress(), { wrapper })
 
       // Assert
       expect(result.current.progress.completedGames).toEqual([])
@@ -49,7 +52,7 @@ describe('useProgress', () => {
   describe('completeGame', () => {
     it('adds the gameId and pieceId to progress', () => {
       // Arrange
-      const { result } = renderHook(() => useProgress())
+      const { result } = renderHook(() => useProgress(), { wrapper })
 
       // Act
       act(() => {
@@ -63,7 +66,7 @@ describe('useProgress', () => {
 
     it('persists progress to localStorage', () => {
       // Arrange
-      const { result } = renderHook(() => useProgress())
+      const { result } = renderHook(() => useProgress(), { wrapper })
 
       // Act
       act(() => {
@@ -77,7 +80,7 @@ describe('useProgress', () => {
 
     it('does not add a duplicate if the game is already complete', () => {
       // Arrange
-      const { result } = renderHook(() => useProgress())
+      const { result } = renderHook(() => useProgress(), { wrapper })
       act(() => {
         result.current.completeGame('stadium-quiz', 'piece-1')
       })
@@ -96,7 +99,7 @@ describe('useProgress', () => {
   describe('markGameComplete', () => {
     it('sets gameComplete to true and persists it', () => {
       // Arrange
-      const { result } = renderHook(() => useProgress())
+      const { result } = renderHook(() => useProgress(), { wrapper })
 
       // Act
       act(() => {
@@ -113,7 +116,7 @@ describe('useProgress', () => {
   describe('resetProgress', () => {
     it('clears all progress from state and localStorage', () => {
       // Arrange
-      const { result } = renderHook(() => useProgress())
+      const { result } = renderHook(() => useProgress(), { wrapper })
       act(() => {
         result.current.completeGame('stadium-quiz', 'piece-1')
       })

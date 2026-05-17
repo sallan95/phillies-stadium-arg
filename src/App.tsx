@@ -2,13 +2,15 @@ import { useState } from 'react'
 import { Routes, Route, Navigate, useParams, useNavigate } from 'react-router-dom'
 import { IntroScreen } from './screens/IntroScreen'
 import { SequenceScreen } from './screens/SequenceScreen'
+import { PuzzleScreen } from './screens/PuzzleScreen'
 import { CongratsScreen } from './screens/CongratsScreen'
 import { PieceFoundCelebration } from './components/PieceFoundCelebration'
 import { GAMES } from './config/games'
 import { useProgress } from './hooks/useProgress'
 
 export function App() {
-  const { progress } = useProgress()
+  const { progress, resetProgress } = useProgress()
+  const navigate = useNavigate()
 
   const defaultRoute = (() => {
     if (progress.gameComplete) return '/congrats'
@@ -16,7 +18,15 @@ export function App() {
     return '/'
   })()
 
+  function handleReset() {
+    if (window.confirm('Reset all progress and return to the start?')) {
+      resetProgress()
+      navigate('/')
+    }
+  }
+
   return (
+    <>
     <Routes>
       <Route path="/" element={
         progress.completedGames.length > 0
@@ -24,6 +34,11 @@ export function App() {
           : <IntroScreen />
       } />
       <Route path="/sequence" element={<SequenceScreen />} />
+      <Route path="/puzzle" element={
+        GAMES.every(g => progress.completedGames.includes(g.gameId))
+          ? <PuzzleScreen />
+          : <Navigate to={defaultRoute} replace />
+      } />
       <Route path="/congrats" element={
         progress.gameComplete
           ? <CongratsScreen />
@@ -32,6 +47,17 @@ export function App() {
       <Route path="/game/:gameId" element={<GameRoute />} />
       <Route path="*" element={<Navigate to={defaultRoute} replace />} />
     </Routes>
+    {import.meta.env.DEV && (
+      <div className="pointer-events-none fixed bottom-4 left-0 right-0 flex justify-center">
+        <button
+          className="pointer-events-auto rounded px-3 py-1 text-xs text-gray-400 underline"
+          onClick={handleReset}
+        >
+          [dev] Reset progress
+        </button>
+      </div>
+    )}
+    </>
   )
 }
 
