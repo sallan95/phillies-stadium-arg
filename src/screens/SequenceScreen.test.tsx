@@ -42,7 +42,6 @@ describe('SequenceScreen', () => {
       // Act
       renderSequenceScreen()
 
-      // Assert — scope to the game list to exclude the dev reset button
       const list = screen.getByRole('list')
       const buttons = within(list).getAllByRole('button')
       expect(buttons[0]).not.toBeDisabled()
@@ -83,49 +82,7 @@ describe('SequenceScreen', () => {
       renderSequenceScreen()
 
       // Assert — with only one game in config, all complete = congrats visible
-      expect(screen.getByText(/View your Scorecard/)).toBeInTheDocument()
-    })
-  })
-
-  describe('dev reset button', () => {
-    it('is present in the dev environment', () => {
-      mockProgress()
-      renderSequenceScreen()
-      expect(screen.getByText('[dev] Reset progress')).toBeInTheDocument()
-    })
-
-    it('resets progress and navigates to / when confirmed', async () => {
-      const user = userEvent.setup()
-      const resetProgress = vi.fn()
-      vi.mocked(progressHook.useProgress).mockReturnValue({
-        progress: { completedGames: [], collectedPieces: [], gameComplete: false },
-        completeGame: vi.fn(),
-        markGameComplete: vi.fn(),
-        resetProgress,
-      })
-      vi.spyOn(window, 'confirm').mockReturnValue(true)
-      renderSequenceScreen()
-
-      await user.click(screen.getByText('[dev] Reset progress'))
-
-      expect(resetProgress).toHaveBeenCalledOnce()
-    })
-
-    it('does not reset when the confirmation is cancelled', async () => {
-      const user = userEvent.setup()
-      const resetProgress = vi.fn()
-      vi.mocked(progressHook.useProgress).mockReturnValue({
-        progress: { completedGames: [], collectedPieces: [], gameComplete: false },
-        completeGame: vi.fn(),
-        markGameComplete: vi.fn(),
-        resetProgress,
-      })
-      vi.spyOn(window, 'confirm').mockReturnValue(false)
-      renderSequenceScreen()
-
-      await user.click(screen.getByText('[dev] Reset progress'))
-
-      expect(resetProgress).not.toHaveBeenCalled()
+      expect(screen.getByText(/Rebuild the Scorecard/)).toBeInTheDocument()
     })
   })
 

@@ -1,4 +1,5 @@
-import { useState, useCallback } from 'react'
+import { createContext, useCallback, useContext, useState } from 'react'
+import type { ReactNode } from 'react'
 
 export interface ProgressState {
   completedGames: string[]
@@ -28,7 +29,16 @@ function saveProgress(state: ProgressState): void {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
 }
 
-export function useProgress() {
+interface ProgressContextValue {
+  progress: ProgressState
+  completeGame: (gameId: string, pieceId: string) => void
+  markGameComplete: () => void
+  resetProgress: () => void
+}
+
+const ProgressContext = createContext<ProgressContextValue | null>(null)
+
+export function ProgressProvider({ children }: { children: ReactNode }) {
   const [progress, setProgress] = useState<ProgressState>(loadProgress)
 
   const completeGame = useCallback((gameId: string, pieceId: string) => {
@@ -57,5 +67,15 @@ export function useProgress() {
     setProgress(EMPTY_PROGRESS)
   }, [])
 
-  return { progress, completeGame, markGameComplete, resetProgress }
+  return (
+    <ProgressContext.Provider value={{ progress, completeGame, markGameComplete, resetProgress }}>
+      {children}
+    </ProgressContext.Provider>
+  )
+}
+
+export function useProgress(): ProgressContextValue {
+  const ctx = useContext(ProgressContext)
+  if (!ctx) throw new Error('useProgress must be used within ProgressProvider')
+  return ctx
 }
