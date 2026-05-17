@@ -1,11 +1,13 @@
 import { useState } from 'react'
+import type { FormEvent } from 'react'
 
 export function CongratsScreen() {
   const [inputValue, setInputValue] = useState('')
   const [playerName, setPlayerName] = useState('This Fan')
   const [showModal, setShowModal] = useState(true)
 
-  function handleSubmit() {
+  function handleSubmit(e?: FormEvent) {
+    e?.preventDefault()
     setPlayerName(inputValue.trim() || 'This Fan')
     setShowModal(false)
   }
@@ -16,7 +18,7 @@ export function CongratsScreen() {
         title: 'Scorecard Recovery Crew',
         text: `${playerName} is an official member of the Scorecard Recovery Crew! "A Philly by any other name would smell as sweet."`,
       })
-      .catch(() => {})
+      .catch((err) => { if (err.name !== 'AbortError') console.error(err) })
   }
 
   return (
@@ -37,24 +39,26 @@ export function CongratsScreen() {
               his gratitude, he'd like to make you an official member of the Scorecard Recovery
               Crew.
             </p>
-            <label htmlFor="player-name" className="mb-1 block text-sm font-medium text-gray-600">
-              Your name
-            </label>
-            <input
-              id="player-name"
-              type="text"
-              autoFocus
-              value={inputValue}
-              placeholder="Enter your name (optional)"
-              className="mb-6 w-full rounded-lg border border-gray-300 px-4 py-2 text-center focus:outline-none focus:ring-2 focus:ring-red-500"
-              onChange={(e) => setInputValue(e.target.value)}
-            />
-            <button
-              className="w-full rounded-xl bg-red-600 px-8 py-3 font-bold text-white active:bg-red-700"
-              onClick={handleSubmit}
-            >
-              Join the Crew
-            </button>
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="player-name" className="mb-1 block text-sm font-medium text-gray-600">
+                Your name
+              </label>
+              <input
+                id="player-name"
+                type="text"
+                autoFocus
+                value={inputValue}
+                placeholder="Enter your name (optional)"
+                className="mb-6 w-full rounded-lg border border-gray-300 px-4 py-2 text-center focus:outline-none focus:ring-2 focus:ring-red-500"
+                onChange={(e) => setInputValue(e.target.value)}
+              />
+              <button
+                type="submit"
+                className="w-full rounded-xl bg-red-600 px-8 py-3 font-bold text-white active:bg-red-700"
+              >
+                Join the Crew
+              </button>
+            </form>
           </div>
         </div>
       )}
