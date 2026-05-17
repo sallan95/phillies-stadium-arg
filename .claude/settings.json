@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit(C:/Users/14843/Documents/programming/phillies-stadium-arg/**)",
+      "Write(C:/Users/14843/Documents/programming/phillies-stadium-arg/**)",
+      "Bash(npm run test*)",
+      "Bash(npm run build*)",
+      "Bash(npm run dev*)"
+    ]
+  }
+}
