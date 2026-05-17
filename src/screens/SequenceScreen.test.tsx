@@ -76,7 +76,7 @@ describe('SequenceScreen', () => {
   describe('with all games complete', () => {
     it('shows the congrats link', () => {
       // Arrange
-      mockProgress({ completedGames: ['stadium-quiz', 'mascot-friends'] })
+      mockProgress({ completedGames: ['stadium-quiz', 'name-that-player', 'mascot-friends'] })
 
       // Act
       renderSequenceScreen()
@@ -100,7 +100,7 @@ describe('SequenceScreen', () => {
     })
 
     it('does not navigate when a locked game is tapped', async () => {
-      // Arrange — add a second game temporarily by testing with mock
+      // Arrange
       mockProgress()
       renderSequenceScreen()
 
