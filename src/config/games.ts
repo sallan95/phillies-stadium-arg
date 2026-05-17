@@ -11,6 +11,7 @@ export interface GameConfig {
 
 // Add a new entry here to register a game — nothing else needs to change.
 import { StadiumQuiz } from '../games/stadium-quiz/StadiumQuiz'
+import { NameThatPlayer } from '../games/name-that-player/NameThatPlayer'
 import { MascotFriends } from '../games/mascot-friends/MascotFriends'
 
 export const GAMES: GameConfig[] = [
@@ -21,7 +22,13 @@ export const GAMES: GameConfig[] = [
     description: 'The Phanatic thinks the clues are hidden in plain sight. Look around!',
     component: StadiumQuiz,
   },
-  // piece-2 is awarded by the Name That Player quiz (US8), not yet built
+  {
+    gameId: 'name-that-player',
+    pieceId: 'piece-2',
+    displayName: 'Name That Player',
+    description: 'The Phanatic wants to know if you know your Phillies. Prove it!',
+    component: NameThatPlayer,
+  },
   {
     gameId: 'mascot-friends',
     pieceId: 'piece-3',

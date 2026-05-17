@@ -1,13 +1,8 @@
+import type { Question } from '../types'
+
 export const PIECE_ID = 'piece-1'
 
-export interface QuizQuestion {
-  question: string
-  options: string[]
-  correctAnswer: string
-  hint: string
-}
-
-export const QUESTIONS: QuizQuestion[] = [
+export const QUESTIONS: Question[] = [
   {
     question: 'What color are most of the seats in the stadium?',
     options: ['Red', 'Blue', 'Green', 'Orange'],
