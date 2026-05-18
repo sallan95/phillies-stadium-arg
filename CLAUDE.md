@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A mobile-first React web app — a scavenger hunt ARG (Alternate Reality Game) for Phillies fans to play during a game at Citizens Bank Park. The story is helping the Philly Phanatic recover the missing pieces of his scorecard. Players complete a series of mini-games in sequence to collect pieces, then assemble them in a final drag-and-drop jigsaw puzzle.
 
-Full requirements and planning Q&A are in `planning/`. User stories are in `planning/stories/` as individual `.md` files. The prioritized backlog is at `planning/stories/BACKLOG.md` — check it to understand build order and the reasoning behind it. Reminders for returning sessions are in `planning/reminders.md`.
+Full requirements and planning Q&A are in `planning/`. User stories are in `planning/stories/` as individual `.md` files. The prioritized backlog is at `planning/stories/BACKLOG.md` — check it to understand build order and the reasoning behind it. Reminders for returning sessions are in `planning/reminders.md`. Architectural decisions are in `planning/decisions.md`.
 
 ## Stack
 
