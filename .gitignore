@@ -30,3 +30,6 @@ planning/
 
 # Claude Code local settings
 .claude/settings.local.json
+
+# Local scripts
+scripts/
